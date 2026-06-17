@@ -4,6 +4,8 @@
 #include <vector>
 #include "median.h"
 #include "Student_info.h"
+#include <algorithm>
+#include <list>
 
 
 // 중간고사 점수, 기말고사 점수, 그리고 과제 점수 벡터로 학생의 종합
@@ -30,9 +32,22 @@ double grade(const Student_info& s) {
 	return grade(s.midterm, s.final, s.homework);
 }
 
+// 학생이 과목을 통과했는지 여부를 반환하는 함수
 bool fgrade(const Student_info& s) {
 	return grade(s) < 60;
 }
+
+bool pgrade(const Student_info & s) {
+		return !fgrade(s);
+}
+
+bool did_all_hw(const Student_info& s) {
+	return ((find(
+		s.homework.begin(), 
+		s.homework.end(), 0)
+		) == s.homework.end());
+}
+
 vector<Student_info> extract_fails(vector<Student_info>& students) {
 	vector<Student_info> fail;
 
